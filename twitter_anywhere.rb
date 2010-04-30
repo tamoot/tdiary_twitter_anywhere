@@ -62,7 +62,8 @@ def tweet_box(label)
       r << %Q|      T("#tweetbox").tweetBox({\n|
       r << %Q|         height: 120,\n|
       r << %Q|         width: 240,\n|
-      r << %Q|         label: '#{label}'\n|
+      r << %Q|         label: '#{label}',\n|
+      r << %Q|         defaultContent: '@tamoot'\n|
       r << %Q|      });\n|
       r << %Q|   });\n|
       r << %Q|</script>\n|

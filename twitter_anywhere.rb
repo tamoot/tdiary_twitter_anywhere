@@ -9,21 +9,23 @@
 
 
 add_header_proc do 
-   if ready_anywhere?
+   if /\A(?:latest|day|month|nyear|preview)\z/ =~ @mode
+      if ready_anywhere?
 
-      hovercards = @conf['anywhere.hovercards.selectors'].split(',').collect do |selector|
-         "twitter(\"#{selector}\").hovercards();"
-      end.join("\n\t")
-      <<-ANYWHERE
-      <script src="http://platform.twitter.com/anywhere.js?id=#{h @conf['anywhere.id']}&v=1">
-      </script>
-      <script type="text/javascript">
-         twttr.anywhere(function(twitter) {#{hovercards}
-         });
-      </script>
-      ANYWHERE
-   else
-      ''
+         hovercards = @conf['anywhere.hovercards.selectors'].split(',').collect do |selector|
+            "twitter(\"#{selector}\").hovercards();"
+         end.join("\n\t")
+         <<-ANYWHERE
+         <script src="http://platform.twitter.com/anywhere.js?id=#{h @conf['anywhere.id']}&v=1">
+         </script>
+         <script type="text/javascript">
+            twttr.anywhere(function(twitter) {#{hovercards}
+            });
+         </script>
+         ANYWHERE
+      else
+         ''
+      end
    end
 end
 
